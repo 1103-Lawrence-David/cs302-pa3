@@ -12,7 +12,7 @@ class Node{
             next = nullptr;
         }
 
-        Node(T d, Node<T>* n){
+        Node(T d, Node<T>* n = nullptr){
             data = d;
             next = n; 
         }

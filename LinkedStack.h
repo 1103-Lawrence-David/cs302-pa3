@@ -18,21 +18,68 @@ class LinkedStack{
         LinkedStack(Node<T>* t, int c){
             topPtr = t;
             count = c;
+
+            if(t == nullptr){
+                count = 0;
+                return;
+            }
+
+            topPtr = new Node<T>(t->getData());
+            Node<T>* currentNew = topPtr;
+            Node<T>* currentOld = t->getNext();
+
+            while (currentOld != nullptr){
+                Node<T>* newNode = new Node<T>(currentOld->getData());
+                currentNew->setNext(newNode);
+                currentNew = newNode;
+                currentOld = currentOld->getNext();
+            }
         }
 
         LinkedStack(const LinkedStack<T>& rhs){ //finish later
             topPtr = nullptr;
-            count = 0;
+            count = rhs.count;
 
             if(rhs.topPtr == nullptr){
-                return ;
+                count = 0;
+                return;
             }
 
-            Node<T>* cRhs = rhs.topPtr;
+            topPtr = new Node<T>(rhs.topPtr->getData());
+            Node<T>* currentNew = topPtr;
+            Node<T>* currentOld = rhs.topPtr->getNext();
 
+            while (currentOld != nullptr){
+                Node<T>* newNode = new Node<T>(currentOld->getData());
+                currentNew->setNext(newNode);
+                currentNew = newNode;
+                currentOld = currentOld->getNext();
+            }
         }
 
-        LinkedStack<T>& operator=(const LinkedStack<T>& rhs){}
+        LinkedStack<T>& operator=(const LinkedStack<T>& rhs){
+            if (this != &rhs){
+                clear();
+
+                count = rhs.count;
+                if(rhs.topPtr == nullptr){
+                    topPtr = nullptr;
+                    return *this;
+                }
+
+                topPtr = new Node<T>(rhs.topPtr->getData());
+                Node<T>* currentNew = topPtr;
+                Node<T>* currentOld = rhs.topPtr->getNext();
+
+                while (currentOld != nullptr){
+                    Node<T>* newNode = new Node<T>(currentOld->getData());
+                    currentNew->setNext(newNode);
+                    currentNew = newNode;
+                    currentOld = currentOld->getNext();
+                }
+            }
+            return *this;
+        }
         
         ~LinkedStack(){ //should be finished
             clear();
@@ -45,17 +92,23 @@ class LinkedStack{
             count++;
         }
 
-        void pop(){
+        T pop(){
             if(!isEmpty()){ //maybe?
+                T tempData = topPtr->getData();
                 Node<T>* temp = topPtr;
                 topPtr = topPtr->getNext();
                 delete temp;
                 count--;
+
+                return tempData;
+            }
+            else{
+                return T();
             }
         }
         
         bool isEmpty() const{ // should be working
-            if(topPtr == nullptr && count = 0){
+            if(topPtr == nullptr){
                 return true;
             }
             
@@ -67,7 +120,7 @@ class LinkedStack{
         }
 
         void clear(){
-            while (!isEmpty()){
+            while(!isEmpty()){
                 pop();
             }
         }
