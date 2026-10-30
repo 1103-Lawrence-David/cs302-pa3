@@ -36,7 +36,7 @@ class LinkedQueue{
         LinkedQueue(const LinkedQueue<T>& rhs){
             frontPtr = nullptr;
             backPtr = nullptr;
-            count = rhs.count;
+            count = 0;
 
             Node<T>* current = rhs.frontPtr;
             while(current != nullptr){

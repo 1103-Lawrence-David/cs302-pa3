@@ -11,7 +11,7 @@ enum class TokenType{
 struct Token{ //Add helper maybe?
     TokenType type;
     int value;
-    
+     
     Token(){
         type = TokenType::PLUS;
         value = 0;
