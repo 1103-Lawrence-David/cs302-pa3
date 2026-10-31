@@ -8,7 +8,7 @@ template <typename T>
 class LinkedStack{
     Node<T>* topPtr;
     int count;
-//2440 1886
+
     public:
         LinkedStack(){
             topPtr = nullptr;
@@ -36,7 +36,7 @@ class LinkedStack{
             }
         }
 
-        LinkedStack(const LinkedStack<T>& rhs){ //finish later
+        LinkedStack(const LinkedStack<T>& rhs){ 
             topPtr = nullptr;
             count = rhs.count;
 
